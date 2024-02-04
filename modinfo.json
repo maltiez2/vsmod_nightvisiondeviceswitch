@@ -1,0 +1,12 @@
+{
+  "type": "content",
+  "modid": "nightvisiondeviceswitch",
+  "name": "Night Vision On/Off Hotkey",
+  "authors": ["Maltiez"],
+  "description": "Night vision mask On/Off hotkey",
+  "version": "1.0.0",
+  "dependencies": {
+    "game": "1.19.0",
+    "fsmlib": "0.2.3"
+  }
+}

@@ -1,0 +1,46 @@
+﻿[
+  {
+    "file": "game:itemtypes/jonas/nightvisiondevice",
+    "op": "add",
+    "path": "/behaviors",
+    "value": [
+      {
+        "name": "FiniteStateMachine",
+        "properties": {
+          "initialState": "init",
+          "systems": {"attributes": {"class": "ChangeAttribute"}},
+          "operations": {
+            "init": {
+              "class": "Instant",
+              "states": {"initial": "init", "final": "on"},
+              "inputs": "hotkey",
+              "systems": [
+                {"code": "attributes", "attribute": "storedHours", "type": "float", "value": 0},
+                {"code": "attributes", "attribute": "fuelHours", "type": "float", "valueFromAttr": {"formula": "equal(fuelHours, 1, 0, fuelHours)", "fuelHours": "fuelHours"}}
+              ]
+            },
+            "turn-off": {
+              "class": "Instant",
+              "states": {"initial": "on", "final": "off"},
+              "inputs": "hotkey",
+              "systems": [
+                {"code": "attributes", "attribute": "storedHours", "type": "float", "valueFromAttr": {"formula": "storedHours + fuelHours", "storedHours": "storedHours", "fuelHours": "fuelHours"}},
+                {"code": "attributes", "attribute": "fuelHours", "type": "float", "value": 0}
+              ]
+            },
+            "turn-on": {
+              "class": "Instant",
+              "states": {"initial": "off", "final": "on"},
+              "inputs": "hotkey",
+              "systems": [
+                {"code": "attributes", "attribute": "storedHours", "type": "float", "value": 0},
+                {"code": "attributes", "attribute": "fuelHours", "type": "float", "valueFromAttr": {"formula": "storedHours + fuelHours", "storedHours": "storedHours", "fuelHours": "fuelHours"}}
+              ]
+            }
+          },
+          "inputs": {"hotkey": {"class": "Key", "key": "N", "type": "press", "slot": "Character", "name": "nightvisiondeviceswitch:toggle-hotkey"}}
+        }
+      }
+    ]
+  }
+]
